@@ -16,7 +16,7 @@ namespace Exercise03.Entities
 
         public override string ToString()
         {
-            return DueDate.ToString("dd/MM/yyyy") + " - $" + Amount.ToString("f2", CultureInfo.InvariantCulture); 
+            return DueDate.ToString("dd/MM/yyyy") + " - $ " + Amount.ToString("f2", CultureInfo.InvariantCulture); 
         }
     }
 }

@@ -1,11 +1,16 @@
-﻿using Exercise01.Entities;
+﻿using Exercise04.Entities;
+using Exercise01.Entities;
 using Exercise01.Services;
 using Exercise02.Entities;
 using Exercise02.Services;
 using Exercise03.Entities;
 using Exercise03.Services;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using Exercise05.Entities;
+using Exercise05.Enums;
 
 namespace Cap14
 {
@@ -13,7 +18,7 @@ namespace Cap14
     {
         static void Main(string[] args)
         {
-            Exercise03();
+            Exercise05();
         }
 
         private static void Exercise01()
@@ -90,6 +95,80 @@ namespace Cap14
             {
                 Console.WriteLine(installment.ToString());
             }
+        }
+
+        private static void Exercise04()
+        {
+            string filePath = @"C:\Users\lucas\source\repos\C#Projects\Curso C# Completo\Cap14\Data\names.txt";
+
+            try
+            {
+                using (StreamReader streamReader = File.OpenText(filePath))
+                {
+                    List<Employee> nameList = new List<Employee>();
+
+                    while (!streamReader.EndOfStream)
+                    {
+                        nameList.Add(new Employee(streamReader.ReadLine()));
+                    }
+
+                    nameList.Sort();
+
+                    foreach (Employee employee in nameList)
+                    {
+                        Console.WriteLine(employee);
+                    }
+                }
+            }
+            catch (IOException error)
+            {
+                Console.WriteLine("An error ocurred:");
+                Console.WriteLine(error.Message);
+            }
+        }
+
+        private static void Exercise05()
+        {
+            try
+            {
+                Card sixHearts = new Card("six", Suit.Hearts, 5);
+                Card aceSpaces = new Card("ace", Suit.Spades, 13);
+                Card eightHearts = new Card("eight", Suit.Hearts, 7);
+                Card threeDiamonds = new Card("three", Suit.Diamonds, 2);
+                Card twoDiamonds = new Card("two", Suit.Diamonds, 1);
+
+                List<Card> playerHand = new List<Card>();
+
+                playerHand.Add(sixHearts);
+                playerHand.Add(aceSpaces);
+                playerHand.Add(eightHearts);
+                playerHand.Add(threeDiamonds);
+                playerHand.Add(twoDiamonds);
+
+                Console.WriteLine("Unsorted Hand: ");
+                foreach (Card card in playerHand)
+                {
+                    Console.WriteLine(card.ToString());
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Sorted Hand: ");
+
+                // playerHand.Sort((IComparer<Card>)new Compare());
+                playerHand.Sort();
+
+                foreach (Card card in playerHand)
+                {
+                    Console.WriteLine(card.ToString());
+                }
+            }
+            catch (IOException error)
+            {
+                Console.WriteLine("An error ocurred: ");
+                Console.WriteLine(error.Message);
+            }
+
+
         }
     }
 }
